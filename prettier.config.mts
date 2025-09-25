@@ -7,7 +7,11 @@ const config: Config = {
 	printWidth: 80,
 	tabWidth: 2,
 	useTabs: true,
-	bracketSpacing: true
+	bracketSpacing: true,
+	importOrder: ['^[./]'],
+	importOrderSeparation: true,
+	importOrderSortSpecifiers: true,
+	plugins: ['@trivago/prettier-plugin-sort-imports']
 };
 
 export default config;
