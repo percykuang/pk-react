@@ -1,10 +1,11 @@
 import { REACT_ELEMENT_TYPE } from 'shared/ReactSymbols';
 import {
-	Type,
+	ElementType,
 	Key,
-	Ref,
 	Props,
-	ReactElement as ReactElementType
+	ReactElement as ReactElementType,
+	Ref,
+	Type
 } from 'shared/ReactTypes';
 
 const ReactElement = function (
@@ -69,4 +70,35 @@ export const jsx = (
 	return ReactElement(type, key, ref, props);
 };
 
-export const jsxDEV = jsx;
+export const jsxDEV = (type: ElementType, config: any) => {
+	let key: Key = null;
+	const props: Props = {};
+	let ref: Ref = null;
+
+	for (const prop in config) {
+		const val = config[prop];
+		if (prop === 'key') {
+			if (val !== undefined) {
+				key = String(val);
+			}
+			continue;
+		}
+		if (prop === 'ref') {
+			if (val !== undefined) {
+				ref = val;
+			}
+			continue;
+		}
+		/**
+		 * {}.hasOwnProperty.call(config, prop) 和 config.hasOwnProperty(prop)
+		 * 都用于判断对象 config 是否自身拥有属性 prop（不包括继承的属性）
+		 * 但两者存在一个关键区别：当 config 自身覆盖了 hasOwnProperty 方法时
+		 * 后者会失效，而前者更可靠
+		 */
+		if ({}.hasOwnProperty.call(config, prop)) {
+			props[prop] = val;
+		}
+	}
+
+	return ReactElement(type, key, ref, props);
+};
