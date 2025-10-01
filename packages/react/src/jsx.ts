@@ -3,7 +3,7 @@ import {
 	ElementType,
 	Key,
 	Props,
-	ReactElement as ReactElementType,
+	ReactElementType,
 	Ref,
 	Type
 } from 'shared/ReactTypes';
