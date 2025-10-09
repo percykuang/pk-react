@@ -3,7 +3,7 @@ import generatePackageJson from 'rollup-plugin-generate-package-json';
 
 import { getBaseRollupPlugins, getPackageJSON, resolvePkgPath } from './utils';
 
-const { name, module } = getPackageJSON('react-dom');
+const { name, module, peerDependencies } = getPackageJSON('react-dom');
 // react dom 包的路径
 const pkgPath = resolvePkgPath(name);
 // react dom 产物路径
@@ -26,6 +26,7 @@ export default [
 				format: 'umd'
 			}
 		],
+		externals: [...Object.keys(peerDependencies)],
 		plugins: [
 			...getBaseRollupPlugins(),
 			alias({
