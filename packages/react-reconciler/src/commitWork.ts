@@ -95,7 +95,7 @@ function commitDeletion(childToDelete: FiberNode) {
 				}
 				return;
 			case FunctionComponent:
-				// TODO useEffect unmount
+				// TODO useEffect unmount、解绑 ref
 				return;
 			default:
 				if (__DEV__) {
@@ -109,7 +109,7 @@ function commitDeletion(childToDelete: FiberNode) {
 	if (rootHostNode !== null) {
 		const hostParent = getHostParent(childToDelete);
 		if (hostParent !== null) {
-			removeChild(rootHostNode, hostParent);
+			removeChild((rootHostNode as FiberNode).stateNode, hostParent);
 		}
 	}
 	childToDelete.return = null;
